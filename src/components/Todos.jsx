@@ -1,7 +1,7 @@
 // Todos.js
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeTodo} from '../features/todo/todoSlice'; // Assuming you have an addTodo action
+import { removeTodo, toggleTodo } from '../features/todo/todoSlice';
 import AddTodo from './AddTodo';
 
 function Todos() {
@@ -10,7 +10,6 @@ function Todos() {
   const [editId, setEditId] = useState(null);
   const [editText, setEditText] = useState('');
   const [doEdit, setDoEdit] = useState(false);
-
 
   const handleEditClick = (id, text) => {
     setEditId(id);
@@ -29,19 +28,38 @@ function Todos() {
       <AddTodo editId={editId} editText={editText} handleAfterUpdated={handleAfterUpdated} />
       <div>Todos</div>
       <ul className="list-none">
-        {console.log(todos)}
         {todos.map((todo) => (
           <li
-          className="mt-4 flex justify-between items-center bg-zinc-800 px-4 py-2 rounded"
-          key={todo.id}
+            className={`mt-4 flex justify-between items-center ${todo.completed ? 'bg-zinc-800 text-white' : 'bg-black'
+              } px-4 py-2 rounded`}
+            key={todo.id}
           >
-            <div className="text-white">{todo.text}</div>
-            <div className='flex items-center'>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => dispatch(toggleTodo(todo.id))}
+                className="checkbox-input visually-hidden"
+              />
+              <label
+                className={`checkbox-label ${todo.completed ? 'checked' : ''} mr-3`}
+                onClick={() => dispatch(toggleTodo(todo.id))}
+              ></label>
+
+
+              <div className={`text-white ${todo.completed ? 'line-through' : ''}`}>
+                {todo.text}
+              </div>
+            </div>
+            <div className="flex items-center">
               <button
-                onClick={() => (doEdit) ? handleAfterUpdated() :handleEditClick(todo.id, todo.text)}
-                className="text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded text-md mr-3"
+                onClick={() => (doEdit ? handleAfterUpdated() : handleEditClick(todo.id, todo.text))}
+                disabled={todo.completed} // Disable the "Edit" button if the todo is completed
+                className={`text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none ${todo.completed ? 'opacity-50 cursor-not-allowed mr-3 rounded' : 'hover:bg-blue-600 rounded text-md mr-3'
+                  }`}
+
               >
-                {(doEdit) ? 'Cancel' : 'Edit'}
+                {doEdit ? 'Cancel' : 'Edit'}
               </button>
               <button
                 onClick={() => dispatch(removeTodo(todo.id))}

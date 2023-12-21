@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.checkbox-input {
+    position: absolute;
+    left: -9999em;
+    accent-color: white;
+  }
+  
+  .checkbox-label {
+    background: white;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .checkbox-label.checked {
+    background: greenyellow;
+  }
+  

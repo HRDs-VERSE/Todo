@@ -1,4 +1,3 @@
-// todoSlice.js
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -12,7 +11,8 @@ export const todoSlice = createSlice({
     addTodo: (state, action) => {
       const todo = {
         id: nanoid(),
-        text: action.payload
+        text: action.payload,
+        completed: false, // Add completed property and set it to false
       };
       state.todos.push(todo);
     },
@@ -26,7 +26,12 @@ export const todoSlice = createSlice({
         todoToUpdate.text = newText;
       }
     },
-    // Add the new addTodos reducer
+    toggleTodo: (state, action) => {
+      const todoToToggle = state.todos.find((todo) => todo.id === action.payload);
+      if (todoToToggle) {
+        todoToToggle.completed = !todoToToggle.completed;
+      }
+    },
     addTodos: (state, action) => {
       // Assuming the payload is an array of todos
       state.todos = [...state.todos, ...action.payload];
@@ -34,5 +39,5 @@ export const todoSlice = createSlice({
   }
 });
 
-export const { addTodo, removeTodo, updateTodo, addTodos } = todoSlice.actions;
+export const { addTodo, removeTodo, updateTodo, toggleTodo, addTodos } = todoSlice.actions;
 export default todoSlice.reducer;
