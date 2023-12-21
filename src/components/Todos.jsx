@@ -27,10 +27,10 @@ function Todos() {
     <>
       <AddTodo editId={editId} editText={editText} handleAfterUpdated={handleAfterUpdated} />
       <div>Todos</div>
-      <ul className="list-none flex justify-center">
+      <ul className="list-none flex  flex-col">
         {todos.map((todo) => (
           <li
-            className={`mt-4 w-[35rem] flex justify-between items-center text-black px-4 py-2 rounded-full bg-gray-200`}
+            className={`mt-4 w-[35rem] mx-auto flex justify-between items-center text-black px-4 py-2 rounded-full bg-gray-200`}
             key={todo.id}
           >
             <div className="flex items-center">
