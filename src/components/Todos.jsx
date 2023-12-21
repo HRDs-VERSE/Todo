@@ -27,11 +27,10 @@ function Todos() {
     <>
       <AddTodo editId={editId} editText={editText} handleAfterUpdated={handleAfterUpdated} />
       <div>Todos</div>
-      <ul className="list-none">
+      <ul className="list-none flex justify-center">
         {todos.map((todo) => (
           <li
-            className={`mt-4 flex justify-between items-center ${todo.completed ? 'bg-zinc-800 text-white' : 'bg-black'
-              } px-4 py-2 rounded`}
+            className={`mt-4 w-[35rem] flex justify-between items-center text-black px-4 py-2 rounded-full bg-gray-200`}
             key={todo.id}
           >
             <div className="flex items-center">
@@ -47,7 +46,7 @@ function Todos() {
               ></label>
 
 
-              <div className={`text-white ${todo.completed ? 'line-through' : ''}`}>
+              <div className={`text-black ${todo.completed ? 'line-through' : ''}`}>
                 {todo.text}
               </div>
             </div>
@@ -55,7 +54,7 @@ function Todos() {
               <button
                 onClick={() => (doEdit ? handleAfterUpdated() : handleEditClick(todo.id, todo.text))}
                 disabled={todo.completed} // Disable the "Edit" button if the todo is completed
-                className={`text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none ${todo.completed ? 'opacity-50 cursor-not-allowed mr-3 rounded' : 'hover:bg-blue-600 rounded text-md mr-3'
+                className={`text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none rounded-full ${todo.completed ? 'opacity-50 cursor-not-allowed mr-3 ' : 'hover:bg-blue-600 text-md mr-3'
                   }`}
 
               >
@@ -63,7 +62,7 @@ function Todos() {
               </button>
               <button
                 onClick={() => dispatch(removeTodo(todo.id))}
-                className="text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 rounded text-md"
+                className="text-red-600 border-0 py-1 px-4 focus:outline-none hover: border-x-2 hover:border-red-600 rounded-md text-md"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
